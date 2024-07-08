@@ -1,0 +1,28 @@
+class Solution {
+public:
+
+    void f(int idx, int target, vector<int> &freq, vector<int> &candidates, vector<vector<int>> &ans)
+    {
+        if(target==0)
+        {
+            ans.push_back(freq);
+            return;
+        }
+        for(int i=idx; i<candidates.size(); i++)
+        {
+            if(target-candidates[i]>=0)
+            {
+                freq.push_back(candidates[i]);
+                f(i, target-candidates[i], freq, candidates, ans);
+                freq.pop_back();
+            }
+        }
+    }
+
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> ans;
+        vector<int> freq;
+        f(0, target, freq, candidates, ans);
+        return ans;
+    }
+};
